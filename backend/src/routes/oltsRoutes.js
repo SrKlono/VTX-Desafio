@@ -1,9 +1,9 @@
 import express from "express";
-import { getOlts, insertOlt } from "../controllers/oltsController.js";
+import { getOlts, insertOlts } from "../controllers/oltsController.js";
 
 const router = express.Router();
 
 router.get("/", getOlts);
-router.post("/", insertOlt);
+router.post("/", insertOlts);
 
 export default router;

@@ -26,7 +26,7 @@ export async function getOlts(req, res) {
 	}
 }
 
-export async function insertOlt(req, res) {
+export async function insertOlts(req, res) {
 	try {
 		const olts = [];
 		const parser = fs.createReadStream(`${__dirname}/src/olts.csv`).pipe(
