@@ -13,9 +13,3 @@ CREATE TABLE olts (
     isonline BOOLEAN NOT NULL DEFAULT 0,
     olt_vendor VARCHAR(50)
 );
-
-LOAD DATA INFILE '/var/lib/mysql-files/olts.csv'
-INTO TABLE olts
-    FIELDS TERMINATED BY ','
-    LINES TERMINATED BY '\r\n'
-    IGNORE 1 ROWS;
