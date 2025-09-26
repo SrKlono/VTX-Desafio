@@ -14,7 +14,7 @@ def readHuawei(path):
     for data_chunk in split_data:
         data_chunk = data_chunk.lstrip()
         ONUInfo = re.split(r" {2,}", data_chunk)
-        ONUList.append({"slot":ONUInfo[0].split("/")[1], "port":ONUInfo[0].split("/")[2], "ont_id": ONUInfo[1], "sn": ONUInfo[2], "status": ONUInfo[4], "olt": "Huawei"})
+        ONUList.append({"slot":ONUInfo[0].split("/")[1], "port":ONUInfo[0].split("/")[2], "ont_id": ONUInfo[1], "sn": ONUInfo[2], "isonline": 0 if ONUInfo[4] == "offline" else 1, "olt": "Huawei"})
         #print({"slot":ONUInfo[0].split("/")[1], "port":ONUInfo[0].split("/")[2], "ont_id": ONUInfo[1], "sn": ONUInfo[2], "status": ONUInfo[4]})
     return ONUList
 
@@ -43,16 +43,16 @@ def readZTE(pathSN, pathSNState):
     ONUList = []
     for i, data_chunk in enumerate(split_data):
         ONUInfo = re.split(r" {2,}", data_chunk)
-        ONUList.append({"slot": ONUInfo[0].split("/")[0], "port": ONUInfo[0].split("/")[1], "ont_id": ONUInfo[0].split(":")[1], "sn": SNList[i], "status": "online" if ONUInfo[3] == "working" else "offline", "olt": "ZTE"})
+        ONUList.append({"slot": ONUInfo[0].split("/")[0], "port": ONUInfo[0].split("/")[1], "ont_id": ONUInfo[0].split(":")[1], "sn": SNList[i], "isonline": 0 if ONUInfo[3] == "working" else 1, "olt": "ZTE"})
         #print({"slot": ONUInfo[0].split("/")[0], "port": ONUInfo[0].split("/")[1], "ont_id": ONUInfo[0].split(":")[1], "sn": SNList[i], "status": "online" if ONUInfo[3] == "working" else "offline"})
     return ONUList
 
-huawei = readHuawei("./Clg-files/Inputs/OntInfo - Huawei.txt")
-zte = readZTE("./Clg-files/Inputs/OntInfo - ZTE - SNs.txt", "./Clg-files/Inputs/OntInfo - ZTE - SNs - State.txt")
+huawei = readHuawei("./challenge-files/Inputs/OntInfo - Huawei.txt")
+zte = readZTE("./challenge-files/Inputs/OntInfo - ZTE - SNs.txt", "./challenge-files/Inputs/OntInfo - ZTE - SNs - State.txt")
 
 
-with open('output.csv', 'w', newline='') as file:
-    field_names = ["slot", "port", "ont_id", "sn", "status", "olt"]
+with open('./docker/olts.csv', 'w', newline='') as file:
+    field_names = ["sn", "slot", "port", "ont_id", "isonline", "olt"]
     writer = csv.DictWriter(file, field_names)
     writer.writeheader()
     writer.writerows(huawei)
