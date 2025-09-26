@@ -29,7 +29,7 @@ export async function getOnus(req, res) {
 export async function insertOnus(req, res) {
 	try {
 		const onus = [];
-		const parser = fs.createReadStream(`${__dirname}/src/onus.csv`).pipe(
+		const parser = fs.createReadStream(`${__dirname}/src/ONUs.csv`).pipe(
 			parse({
 				delimiter: [","],
 				columns: false,
@@ -46,7 +46,7 @@ export async function insertOnus(req, res) {
 			[onus]
 		);
 
-		res.status(200).json(response);
+		res.status(200).json(response[0]);
 	} catch (error) {
 		console.error("Error in insertOnu", error);
 		res.status(500).json({ message: "Internal server error" });
