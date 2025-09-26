@@ -11,7 +11,7 @@ const NoONUs = () => {
                         location.reload();
 						console.log(res.data);
 					} catch (error) {
-						console.error("Error fetching onu list: ", error);
+						console.error("Error inserting onu into database: ", error);
 					}
 				};
 
