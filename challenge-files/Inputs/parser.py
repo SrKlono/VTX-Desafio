@@ -51,7 +51,7 @@ huawei = readHuawei("./challenge-files/Inputs/OntInfo - Huawei.txt")
 zte = readZTE("./challenge-files/Inputs/OntInfo - ZTE - SNs.txt", "./challenge-files/Inputs/OntInfo - ZTE - SNs - State.txt")
 
 
-with open('./docker/olts.csv', 'w', newline='') as file:
+with open('./backend/src/ONUs.csv', 'w', newline='') as file:
     field_names = ["sn", "slot", "port", "ont_id", "isonline", "olt"]
     writer = csv.DictWriter(file, field_names)
     writer.writeheader()
