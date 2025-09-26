@@ -43,7 +43,7 @@ def readZTE(pathSN, pathSNState):
     ONUList = []
     for i, data_chunk in enumerate(split_data):
         ONUInfo = re.split(r" {2,}", data_chunk)
-        ONUList.append({"slot": ONUInfo[0].split("/")[0], "port": ONUInfo[0].split("/")[1], "ont_id": ONUInfo[0].split(":")[1], "sn": SNList[i], "isonline": 0 if ONUInfo[3] == "working" else 1, "olt": "ZTE"})
+        ONUList.append({"slot": ONUInfo[0].split("/")[0], "port": ONUInfo[0].split("/")[1], "ont_id": ONUInfo[0].split(":")[1], "sn": SNList[i], "isonline": 1 if ONUInfo[3] == "working" else 0, "olt": "ZTE"})
         #print({"slot": ONUInfo[0].split("/")[0], "port": ONUInfo[0].split("/")[1], "ont_id": ONUInfo[0].split(":")[1], "sn": SNList[i], "status": "online" if ONUInfo[3] == "working" else "offline"})
     return ONUList
 
