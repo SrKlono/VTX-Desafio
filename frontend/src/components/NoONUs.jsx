@@ -1,17 +1,20 @@
 import React from "react";
 import api from "../lib/axios.js";
 
-const NoONUs = () => {
+const NoONUs = ({fetchFunc}) => {
 	return (
 		<button
 			onClick={() => {
 				const importData = async () => {
 					try {
 						const res = await api.post();
-                        location.reload();
 						console.log(res.data);
+                        fetchFunc();
 					} catch (error) {
-						console.error("Error inserting onu into database: ", error);
+						console.error(
+							"Error inserting onu into database: ",
+							error
+						);
 					}
 				};
 

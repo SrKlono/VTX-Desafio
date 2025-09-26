@@ -12,24 +12,24 @@ const pool = mysql.createPool({
 	host: "localhost",
 	user: process.env.MYSQL_USER,
 	password: process.env.MYSQL_PASSWORD,
-	database: "oltsdb",
+	database: "onusdb",
 	port: process.env.MYSQL_PORT,
 });
 
-export async function getOlts(req, res) {
+export async function getOnus(req, res) {
 	try {
-		const [rows] = await pool.query("SELECT * FROM olts");
+		const [rows] = await pool.query("SELECT * FROM onus");
 		res.status(200).json(rows);
 	} catch (error) {
-		console.error("Error in getOlts", error);
+		console.error("Error in getOnus", error);
 		res.status(500).json({ message: "Internal server error" });
 	}
 }
 
-export async function insertOlts(req, res) {
+export async function insertOnus(req, res) {
 	try {
-		const olts = [];
-		const parser = fs.createReadStream(`${__dirname}/src/olts.csv`).pipe(
+		const onus = [];
+		const parser = fs.createReadStream(`${__dirname}/src/onus.csv`).pipe(
 			parse({
 				delimiter: [","],
 				columns: false,
@@ -37,18 +37,18 @@ export async function insertOlts(req, res) {
 				from_line: 2
 			})
 		);
-		for await (const olt of parser) {
-			olts.push(olt);
+		for await (const onu of parser) {
+			onus.push(onu);
 		}
 
 		var response = await pool.query(
-			"INSERT IGNORE INTO olts (sn, slot, port, ont_id, isonline, olt_vendor) VALUES ?",
-			[olts]
+			"INSERT IGNORE INTO onus (sn, slot, port, ont_id, isonline, olt_vendor) VALUES ?",
+			[onus]
 		);
 
 		res.status(200).json(response);
 	} catch (error) {
-		console.error("Error in insertOlt", error);
+		console.error("Error in insertOnu", error);
 		res.status(500).json({ message: "Internal server error" });
 	}
 }
