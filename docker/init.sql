@@ -17,5 +17,5 @@ CREATE TABLE olts (
 LOAD DATA INFILE '/var/lib/mysql-files/olts.csv'
 INTO TABLE olts
     FIELDS TERMINATED BY ','
-    LINES TERMINATED BY '\n'
+    LINES TERMINATED BY '\r\n'
     IGNORE 1 ROWS;

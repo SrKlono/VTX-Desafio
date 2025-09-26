@@ -57,3 +57,13 @@ with open('./docker/olts.csv', 'w', newline='') as file:
     writer.writeheader()
     writer.writerows(huawei)
     writer.writerows(zte)
+
+#with open('./docker/olts_huawei.csv', 'w', newline='') as file:
+#    writer = csv.DictWriter(file, field_names)
+#    writer.writeheader()
+#    writer.writerows(huawei)
+
+#with open('./backend/src/olts_zte.csv', 'w', newline='') as file:
+#    writer = csv.DictWriter(file, field_names)
+#    writer.writeheader()
+#    writer.writerows(zte)
